@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scave:Analysis xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scave="http://www.omnetpp.org/omnetpp/scave">
+  <inputs>
+    <inputs name="/veins/examples/veins/results/debug-*.vec"/>
+    <inputs name="/veins/examples/veins/results/debug-*.sca"/>
+    <inputs name="*.vec"/>
+    <inputs name="*.sca"/>
+  </inputs>
+  <datasets>
+    <datasets name="speed">
+      <items xsi:type="scave:Add" filterPattern="file(/veins/examples/veins/results/debug-0.vec) AND run(debug-0-20150706-12:25:22-9066)"/>
+    </datasets>
+  </datasets>
+  <chartSheets/>
+</scave:Analysis>
