@@ -41,11 +41,9 @@ void PSchemeRSU11p::onBeacon(WaveShortMessage* wsm) {
     simtime_t t =  wsm ->getTimestamp();
     Coord cr = wsm ->getSenderPos();
 
-
-
     ofstream outfile;
     outfile.open("beaconRecord.txt",ios::app);
-    outfile <<wsm->getName()<<"Recipient "<< wsm->getRecipientAddress()<<"SenderAdd " << wsm->getSenderAddress()<<" Speed "<< wsm->getSpeed()<<" vecX "<<wsm->getvecX()<<" vecY "<< wsm->getvecY()<<" AngleRad "<< wsm->getAngleRad()<< " ArrivalTime " << wsm->getArrivalTime() <<" Position "<<"("<<cr.x<<","<<cr.y<<","<<cr.z<<")"<< endl;
+    outfile <<" ID "<<wsm->getId()<<" SenderAdd " << wsm->getSenderAddress()<<" Speed "<< wsm->getSpeed()<<" vecX "<<wsm->getvecX()<<" vecY "<< wsm->getvecY()<<" AngleRad "<< wsm->getAngleRad()<< " ArrivalTime " << wsm->getArrivalTime() <<" Position "<<"("<<cr.x<<","<<cr.y<<","<<cr.z<<")"<< endl;
     outfile.close();
 
 }

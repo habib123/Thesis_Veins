@@ -65,7 +65,17 @@ void PScheme11p::receiveSignal(cComponent* source, simsignal_t signalID, cObject
         wsm->setAngleRad(traci->getAngleRad());
         wsm->setvecX(traci->getSpeed(),traci->getAngleRad());
         wsm->setvecY(traci->getSpeed(),traci->getAngleRad());
-        //wsm->setCurrentSpeed(getCurrentSpeed().length());
+        wsm->setId(traci->getExternalId());
+        if(simTime()>=20){
+                if ((int)simTime().dbl()%20 == 0){
+                    add = senderAddress;
+                    wsm->setSenderAddress(senderAddress++);
+                }
+                else{
+                    wsm->setSenderAddress(add);
+               }
+        }
+
         sendWSM(wsm);
     }
 }

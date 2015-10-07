@@ -25,11 +25,6 @@
 					</tool>
 				</toolChain>
 			</folderInfo>
-			<fileInfo id="org.omnetpp.cdt.gnu.config.debug.1760361527.589862292" name="PScheme11p.cc" rcbsApplicability="disable" resourcePath="src/modules/application/traci/PScheme11p.cc" toolsToInvoke="cdt.managedbuild.tool.gnu.cpp.compiler.base.1394815730.1561656445">
-				<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.base.1394815730.1561656445" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base.1394815730">
-					<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1762110386" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
-				</tool>
-			</fileInfo>
 		</configuration>
 	</storageModule>
 </cproject>

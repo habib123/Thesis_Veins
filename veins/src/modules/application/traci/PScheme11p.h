@@ -22,34 +22,38 @@
 #define Test11p_H
 
 #include "BaseWaveApplLayer.h"
-#include "modules/mobility/traci/TraCIMobility.h"
+#include "modules/mobility/traci/PSTraCIMobility.h"
 
-using Veins::TraCIMobility;
+using Veins::PSTraCIMobility;
 using Veins::AnnotationManager;
 
 /**
  * Small IVC Demo using 11p
  */
 class PScheme11p : public BaseWaveApplLayer {
-	public:
-		virtual void initialize(int stage);
-		virtual void receiveSignal(cComponent* source, simsignal_t signalID, cObject* obj);
-	protected:
-		double offSet;
-		TraCIMobility* traci;
-		AnnotationManager* annotations;
-		simtime_t lastDroveAt;
-		bool sentMessage;
-		bool isParking;
-		bool sendWhileParking;
-		static const simsignalwrap_t parkingStateChangedSignal;
-	protected:
-		virtual void onBeacon(WaveShortMessage* wsm);
-		virtual void onData(WaveShortMessage* wsm);
-		void sendMessage(std::string blockedRoadId);
-		virtual void handlePositionUpdate(cObject* obj);
-		virtual void handleParkingUpdate(cObject* obj);
-		virtual void sendWSM(WaveShortMessage* wsm);
+    public:
+        virtual void initialize(int stage);
+        virtual void receiveSignal(cComponent* source, simsignal_t signalID, cObject* obj);
+    protected:
+        double offSet;
+        PSTraCIMobility* traci;
+        AnnotationManager* annotations;
+        simtime_t lastDroveAt;
+        static int senderAddress;
+        int add;
+        bool sentMessage;
+        bool isParking;
+        bool sendWhileParking;
+        static const simsignalwrap_t parkingStateChangedSignal;
+    protected:
+        virtual void onBeacon(WaveShortMessage* wsm);
+        virtual void onData(WaveShortMessage* wsm);
+        void sendMessage(std::string blockedRoadId);
+        virtual void handlePositionUpdate(cObject* obj);
+        virtual void handleParkingUpdate(cObject* obj);
+        virtual void sendWSM(WaveShortMessage* wsm);
 };
+
+int PScheme11p::senderAddress = 5;
 
 #endif
