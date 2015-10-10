@@ -39,6 +39,7 @@ class PScheme11p : public BaseWaveApplLayer {
         PSTraCIMobility* traci;
         AnnotationManager* annotations;
         simtime_t lastDroveAt;
+        simtime_t addressChangeTime;
         static int senderAddress;
         int add;
         bool sentMessage;
@@ -52,6 +53,7 @@ class PScheme11p : public BaseWaveApplLayer {
         virtual void handlePositionUpdate(cObject* obj);
         virtual void handleParkingUpdate(cObject* obj);
         virtual void sendWSM(WaveShortMessage* wsm);
+        virtual void handleSelfMsg(cMessage* msg);
 };
 
 int PScheme11p::senderAddress = 5;

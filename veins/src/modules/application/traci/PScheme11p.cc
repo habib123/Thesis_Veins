@@ -37,9 +37,7 @@ void PScheme11p::initialize(int stage) {
 
         sentMessage = false;
         lastDroveAt = simTime();
-        findHost()->subscribe(parkingStateChangedSignal, this);
         isParking = false;
-        sendWhileParking = par("sendWhileParking").boolValue();
     }
 }
 
@@ -54,30 +52,40 @@ void PScheme11p::onData(WaveShortMessage* wsm) {
 void PScheme11p::sendMessage(std::string blockedRoadId) {
 
 }
+
+void PScheme11p::handleSelfMsg(cMessage* msg) {
+    switch (msg->getKind()) {
+        case SEND_BEACON_EVT: {
+            WaveShortMessage* wsm = prepareWSM("beacon", beaconLengthBits, type_CCH, beaconPriority, 0, -1);
+            wsm->setSpeed(traci->getSpeed());
+            wsm->setAngleRad(traci->getAngleRad());
+            wsm->setvecX(traci->getSpeed(),traci->getAngleRad());
+            wsm->setvecY(traci->getSpeed(),traci->getAngleRad());
+            wsm->setId(traci->getExternalId());
+            if(simTime()>=20){
+                    if ((int)simTime().dbl()%20 == 0){
+                        add = senderAddress;
+                        wsm->setSenderAddress(senderAddress++);
+                    }
+                    else{
+                        wsm->setSenderAddress(add);
+                   }
+            }
+            sendWSM(wsm);
+            scheduleAt(simTime() + par("beaconInterval").doubleValue(), sendBeaconEvt);
+            break;
+        }
+        default: {
+            if (msg)
+                DBG << "APP: Error: Got Self Message of unknown kind! Name: " << msg->getName() << endl;
+            break;
+        }
+    }
+}
+
 void PScheme11p::receiveSignal(cComponent* source, simsignal_t signalID, cObject* obj) {
     Enter_Method_Silent();
     handlePositionUpdate(obj);
-    t_channel channel = dataOnSch ? type_SCH : type_CCH;
-    WaveShortMessage* wsm = prepareWSM("beacon", beaconLengthBits, channel, beaconPriority, 0, -1);
-    if (simTime() - lastDroveAt >= 1){
-        lastDroveAt = simTime();
-        wsm->setSpeed(traci->getSpeed());
-        wsm->setAngleRad(traci->getAngleRad());
-        wsm->setvecX(traci->getSpeed(),traci->getAngleRad());
-        wsm->setvecY(traci->getSpeed(),traci->getAngleRad());
-        wsm->setId(traci->getExternalId());
-        if(simTime()>=20){
-                if ((int)simTime().dbl()%20 == 0){
-                    add = senderAddress;
-                    wsm->setSenderAddress(senderAddress++);
-                }
-                else{
-                    wsm->setSenderAddress(add);
-               }
-        }
-
-        sendWSM(wsm);
-    }
 }
 void PScheme11p::handleParkingUpdate(cObject* obj) {
 
