@@ -31,7 +31,6 @@ void PSchemeRSU11p::initialize(int stage) {
 	    ASSERT(mobi);
 	    annotations = AnnotationManagerAccess().getIfExists();
 	    ASSERT(annotations);
-	    RSUSpeedLimit = par("RSUSpeedLimit").longValue();
 	}
 }
 
@@ -43,7 +42,7 @@ void PSchemeRSU11p::onBeacon(WaveShortMessage* wsm) {
 
     ofstream outfile;
     outfile.open("beaconRecord.txt",ios::app);
-    outfile <<" ID "<<wsm->getId()<<" SenderAdd " << wsm->getSenderAddress()<<" Speed "<< wsm->getSpeed()<<" vecX "<<wsm->getvecX()<<" vecY "<< wsm->getvecY()<<" AngleRad "<< wsm->getAngleRad()<< " ArrivalTime " << wsm->getArrivalTime() <<" Position "<<"("<<cr.x<<","<<cr.y<<","<<cr.z<<")"<< endl;
+    outfile <<" ID "<<wsm->getCarId()<<" SenderAdd " << wsm->getSenderAddress()<<" Speed "<< wsm->getSpeed()<<" vecX "<<wsm->getvecX()<<" vecY "<< wsm->getvecY()<<" AngleRad "<< wsm->getAngleRad()<< " ArrivalTime " << wsm->getArrivalTime() <<" Position "<<"("<<cr.x<<","<<cr.y<<","<<cr.z<<")"<< endl;
     outfile.close();
 
 }

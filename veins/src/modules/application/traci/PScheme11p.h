@@ -22,10 +22,24 @@
 #define Test11p_H
 
 #include "BaseWaveApplLayer.h"
-#include "modules/mobility/traci/PSTraCIMobility.h"
+#include "modules/mobility/traci/TraCIMobility.h"
+#include <iostream>
+#include <cctype>
+#include <cstring>
+#include <cstdlib>
+#include <sstream>
+#include<functional>
+#include <thread>
+using namespace std;
 
-using Veins::PSTraCIMobility;
+using Veins::TraCIMobility;
 using Veins::AnnotationManager;
+static int senderAddress;
+
+
+
+
+
 
 /**
  * Small IVC Demo using 11p
@@ -36,26 +50,37 @@ class PScheme11p : public BaseWaveApplLayer {
         virtual void receiveSignal(cComponent* source, simsignal_t signalID, cObject* obj);
     protected:
         double offSet;
-        PSTraCIMobility* traci;
+        TraCIMobility* traci;
         AnnotationManager* annotations;
         simtime_t lastDroveAt;
         simtime_t addressChangeTime;
-        static int senderAddress;
-        int add;
+
+        int address;
         bool sentMessage;
         bool isParking;
         bool sendWhileParking;
         static const simsignalwrap_t parkingStateChangedSignal;
     protected:
+        //std::function<void(void)> func;
+        //std::function<void(void)> func =std::bind(&PScheme11p::do_something, this);
+        //std::function<void(void)> f = std::bind(&Foo::doSomething, this);
+        virtual void timer_start(unsigned int interval,PScheme11p* p);
+        virtual void do_something();
+        virtual void myThread(int arg);
         virtual void onBeacon(WaveShortMessage* wsm);
         virtual void onData(WaveShortMessage* wsm);
-        void sendMessage(std::string blockedRoadId);
+       // void sendMessage(std::string blockedRoadId);
         virtual void handlePositionUpdate(cObject* obj);
-        virtual void handleParkingUpdate(cObject* obj);
+       // virtual void handleParkingUpdate(cObject* obj);
         virtual void sendWSM(WaveShortMessage* wsm);
         virtual void handleSelfMsg(cMessage* msg);
+        virtual void changeId(std::string carId);
+        virtual int getActualPositionId(string carId);
+        virtual int getActualCarId(string carId);
+       // void handleMessage(cMessage *msg);
+        virtual WaveShortMessage* prepareWSM(std::string name, int lengthBits, t_channel channel, int priority, int rcvId, int serial);
 };
 
-int PScheme11p::senderAddress = 5;
+//int PScheme11p::senderAddress =  0;
 
 #endif

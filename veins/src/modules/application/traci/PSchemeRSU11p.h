@@ -40,7 +40,6 @@ class PSchemeRSU11p : public BaseWaveApplLayer {
 		AnnotationManager* annotations;
 		BaseMobility* mobi;
 		bool sentMessage;
-		int RSUSpeedLimit;
 	protected:
 		simtime_t timeout;  // timeout
 		 cMessage *timeoutEvent;  // holds pointer to the timeout self-message

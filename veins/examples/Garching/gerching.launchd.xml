@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!-- debug config -->
+<launch>
+	<copy file="gerching.net.xml" />
+	<copy file="gerching.rou.xml" />
+	<copy file="gerching.poly.xml" />
+	<copy file="gerching.sumo.cfg" type="config" />
+</launch>
+

@@ -23,7 +23,9 @@ import org.car2x.veins.modules.application.ieee80211p.BaseWaveApplLayer;
 
 simple PScheme11p extends BaseWaveApplLayer
 {
+parameters:
     @class(PScheme11p);
     @display("i=block/app2");
+	int senderAddress = default(999);
     bool sendWhileParking  = default(false); //send messages when the car is parked
 }

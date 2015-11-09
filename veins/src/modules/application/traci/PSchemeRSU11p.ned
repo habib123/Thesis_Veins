@@ -24,7 +24,6 @@ import org.car2x.veins.modules.application.ieee80211p.BaseWaveApplLayer;
 simple PSchemeRSU11p extends BaseWaveApplLayer
 {
 parameters:
-		int RSUSpeedLimit = default(30);  
     @class(PSchemeRSU11p);
     @display("i=block/app2");
 }

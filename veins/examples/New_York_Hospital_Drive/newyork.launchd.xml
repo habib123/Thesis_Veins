@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!-- debug config -->
+<launch>
+	<copy file="newyork.net.xml" />
+	<copy file="newyork.rou.xml" />
+	<copy file="newyork.poly.xml" />
+	<copy file="newyork.sumo.cfg" type="config" />
+</launch>
+
